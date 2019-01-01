@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+	"libraries": [
+		{
+			"provider": "cdnjs",
+			"library": "underscore.js@1.9.1",
+			"destination": "wwwroot/lib/underscore.js/",
+			"files": [
+				"underscore-min.js"
+			]
+		},
+		{
+			"provider": "cdnjs",
+			"library": "jquery@3.3.1",
+			"destination": "wwwroot/lib/jquery/",
+			"files": [
+				"jquery.min.js"
+			]
+		}
+	]
+}
