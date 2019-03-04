@@ -1,14 +1,32 @@
 ﻿/* site.js */
 (function () {
-	var ele = document.getElementById("username");
-	ele.innerHTML = "Vla Guzman";
+	//var ele = $("#username");
+	//ele.text("Vla Guzman");
 
-	var main = document.getElementById("main");
-	main.onmouseenter = function () {
-		main.style = "background: #888;";
-	};
+	//var main = $("#main");
+	//main.on("mouseenter", function () {
+	//main.css('background-color', '#888');
+	//});
 
-	main.onmouseleave = function () {
-		main.style = "";
-	};
+	//main.on("mouseleave", function () {
+	//	main.css('background-color','');
+	//});
+
+	//var menuitems = $("ul.menu li a");
+	//menuitems.on("click", function () {
+	//	var me = $(this);
+	//	alert(me.text());
+	//});
+
+	var $sidebarAndWrapper = $("#sidebar,#wrapper");
+
+	$("#sidebarToggle").on("click", function () {
+		$sidebarAndWrapper.toggleClass("hide-sidebar");
+		if ($sidebarAndWrapper.hasClass("hide-sidebar")) {
+			$(this).text("Show Sidebar");
+		} else {
+			$(this).text("Hide Sidebar");
+		}
+	});
+
 })();

@@ -1,22 +1,36 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-	"libraries": [
-		{
-			"provider": "cdnjs",
-			"library": "underscore.js@1.9.1",
-			"destination": "wwwroot/lib/underscore.js/",
-			"files": [
-				"underscore-min.js"
-			]
-		},
-		{
-			"provider": "cdnjs",
-			"library": "jquery@3.3.1",
-			"destination": "wwwroot/lib/jquery/",
-			"files": [
-				"jquery.min.js"
-			]
-		}
-	]
+  "libraries": [
+    {
+      "provider": "cdnjs",
+      "library": "underscore.js@1.9.1",
+      "destination": "wwwroot/lib/underscore.js/",
+      "files": [
+        "underscore-min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery@3.3.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/",
+      "files": [
+        "jquery.validate.unobtrusive.min.js"
+      ]
+    },
+    {
+      "library": "jquery-validate@1.19.0",
+      "destination": "wwwroot/lib/jquery-validate/",
+      "files": [
+        "jquery.validate.min.js"
+      ]
+    }
+  ]
 }
