@@ -1,44 +1,67 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>The World - @ViewBag.Title</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/lib/bootswatch/yeti/bootstrap.min.css" />
-    <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
-    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" />
+  <title>The World - @ViewBag.Title</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="~/lib/bootswatch/yeti/bootstrap.min.css" />
+  <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+  <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div id="sidebar">
-        <img src="~/img/user1.jpg" alt="headshot" class="headshot" />
-        <span id="username">Sam Hastings</span>
-        <ul class="menu">
-            <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
-            <li><a asp-controller="App" asp-action="About">About</a></li>
-            <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
-        </ul>
+  <div id="sidebar">
+    <img src="~/img/user1.jpg" alt="headshot" class="headshot" />
+    <span id="username">Sam Hastings</span>
+    <ul class="nav flex-column">
+      <li class="active nav-link"><a asp-controller="App" asp-action="Index">Home</a></li>
+      <li class="nav-link"><a asp-controller="App" asp-action="About">About</a></li>
+      <li class="nav-link"><a asp-controller="App" asp-action="Contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <div id="wrapper">
+		<nav class="navbar navbar-dark bg-primary d-flex flex-row p-0">
+			<div class="container-fluid">
+				<ul class="nav navbar-nav">
+					<li>
+						<button id="sidebarToggle" class="btn btn-primary">
+							<i class="fas fa-angle-left"></i>
+						</button>
+					</li>
+				</ul>
+				<a asp-controller="App" asp-action="Index" class="navbar-brand flex-grow-1">The World</a>
+				<ul class="nav d-flex justify-content-end">
+					<li>
+						<a href="#" class="btn btn-sm btn-info">
+							<i class="fa fa-save"></i> Save
+						</a>
+					</li>
+					<li>
+						<a href="#" class="btn btn-sm btn-info">
+							<i class="fa fa-print"></i> Print
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav> 
+    <div id="main" class="container-fluid">
+			<div>
+				@RenderBody()
+			</div>
     </div>
+    <div id="footer" class="container-fluid">
+			<div class="navbar navbar-dark bg-primary fixed-bottom justify-content-center">
+				<h4 class="text-info">&copy; 2019 The World Ltd.</h4>
+			</div>
+		</div>
+  </div>
 
-    <div id="wrapper">
-        <div id="main">
-            <div>
-                <button id="sidebarToggle" class="btn btn-primary">
-                    <i class="fas fa-angle-left"></i>
-                </button>
-            </div>
-            @RenderBody()
-        </div>
-        <div id="footer">
-            <p class="text-primary">&copy; 2019 The World Ltd.</p>
-        </div>
-    </div>
+  <script type="text/javascript" src="~/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="~/js/site.js"></script>
 
-    <script type="text/javascript" src="~/lib/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/js/site.js"></script>
-
-    @RenderSection("scripts", false)
+  @RenderSection("scripts", false)
 
 </body>
 </html>
