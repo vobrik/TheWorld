@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using TheWorld.Models;
 using TheWorld.Services;
+using TheWorld.ViewModels;
 
 namespace TheWorld
 {
 	public class Startup
 	{
 		private IHostingEnvironment _env;
-		private IConfigurationRoot _config;
+		private IConfigurationRoot _config;		
 
 		public Startup(IHostingEnvironment env)
 		{
@@ -28,6 +31,7 @@ namespace TheWorld
 				.AddEnvironmentVariables();
 
 			_config = builder.Build();
+			
 		}
 
 		// This method gets called by the runtime. Use this method to add services to the container.
@@ -38,10 +42,22 @@ namespace TheWorld
 
 			if (_env.IsEnvironment("Development") || _env.IsEnvironment("Testing"))
 			{
+				services.AddLogging(loggingBuilder =>
+				{
+					loggingBuilder.SetMinimumLevel(LogLevel.Information);
+					loggingBuilder.AddDebug();
+				});
+
 				services.AddScoped<IMailService, DebugMailService>();
 			}
 			else
 			{
+				services.AddLogging(loggingBuilder =>
+				{
+					loggingBuilder.SetMinimumLevel(LogLevel.Error);
+					loggingBuilder.AddDebug();
+				});
+
 				//Implement a real Mail Service
 			}
 
@@ -49,25 +65,43 @@ namespace TheWorld
 
 			services.AddScoped<IWorldRepository , WorldRepository>();
 
+			services.AddTransient<GeoCoordsService>();
+
 			services.AddTransient<WorldContextSeedData>();
 
-			services.AddLogging();
+			var mappingConfig = new MapperConfiguration(cfg =>
+			{
+				cfg.CreateMap<TripViewModel , Trip>().ReverseMap();
+				cfg.CreateMap<StopViewModel , Stop>().ReverseMap();
+			});
 
-			services.AddMvc();
+			services.AddSingleton<IMapper>(sp => mappingConfig.CreateMapper());
+
+			services.AddMvc()
+				.AddJsonOptions(config =>
+				{
+					config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+				});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-														WorldContextSeedData seeder, ILoggerFactory factory)
+														WorldContextSeedData seeder)//, ILoggerFactory factory)
 		{
+			//Mapper.Initialize(config =>
+			//{
+
+			//});
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				factory.AddDebug(LogLevel.Information);
+				//factory.AddDebug(LogLevel.Information);
 			}
 			else
 			{
-				factory.AddDebug(LogLevel.Error);
+				//factory.AddDebug(LogLevel.Error);
 			}
 			app.UseStaticFiles();
 			app.UseMvc(config =>
